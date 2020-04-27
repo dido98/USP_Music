@@ -19,7 +19,6 @@ namespace USP_Music
         public static void LoadFromSQL()
         {
             _SongsList = GetSongsList();
-            ;
         }
 
         public static List<Song> GetSongsList()
