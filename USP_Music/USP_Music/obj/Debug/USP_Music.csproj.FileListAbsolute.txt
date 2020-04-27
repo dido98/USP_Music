@@ -1,0 +1,14 @@
+D:\Development\USP_Music\USP_Music\USP_Music\bin\Debug\USP_Music.exe.config
+D:\Development\USP_Music\USP_Music\USP_Music\bin\Debug\USP_Music.exe
+D:\Development\USP_Music\USP_Music\USP_Music\bin\Debug\USP_Music.pdb
+D:\Development\USP_Music\USP_Music\USP_Music\obj\Debug\USP_Music.csprojAssemblyReference.cache
+D:\Development\USP_Music\USP_Music\USP_Music\obj\Debug\USP_Music.Form1.resources
+D:\Development\USP_Music\USP_Music\USP_Music\obj\Debug\USP_Music.Properties.Resources.resources
+D:\Development\USP_Music\USP_Music\USP_Music\obj\Debug\USP_Music.csproj.GenerateResource.cache
+D:\Development\USP_Music\USP_Music\USP_Music\obj\Debug\USP_Music.exe
+D:\Development\USP_Music\USP_Music\USP_Music\obj\Debug\USP_Music.pdb
+D:\Development\USP_Music\USP_Music\USP_Music\obj\Debug\USP_Music.LoginForm.resources
+D:\Development\USP_Music\USP_Music\USP_Music\obj\Debug\USP_Music.RegisterForm.resources
+D:\Development\USP_Music\USP_Music\USP_Music\obj\Debug\USP_Music.MainForm.resources
+D:\Development\USP_Music\USP_Music\USP_Music\obj\Debug\USP_Music.AddSongForm.resources
+D:\Development\USP_Music\USP_Music\USP_Music\obj\Debug\USP_Music.PreviewSongForm.resources
