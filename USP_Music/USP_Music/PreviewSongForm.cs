@@ -30,10 +30,10 @@ namespace USP_Music
 
             pictureBox1.ImageLocation = thumbnail;
 
-            this.label1.Text = "Song Name:";
-            this.label2.Text = "Singer/Group: ";
-            this.label3.Text = "Genre: ";
-            this.label4.Text = "Release Year: ";
+            //this.label1.Text = "Song Name:";
+            //this.label2.Text = "Singer/Group: ";
+            //this.label3.Text = "Genre: ";
+            //this.label4.Text = "Release Year: ";
 
             this.label5.Text = this.m_Song.m_Name;
             this.label6.Text = this.m_Song.m_Actor;
@@ -49,8 +49,23 @@ namespace USP_Music
 
         private void button2_Click(object sender, EventArgs e)
         {
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
             string url = this.m_Song.m_URL;
             Process.Start(url);
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            this.m_RetForm.Show();
+            this.Close();
         }
     }
 }

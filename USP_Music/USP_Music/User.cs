@@ -8,6 +8,7 @@ namespace USP_Music
 {
     public class User
     {
+        public int m_iID { get; set; }
         public string m_Email { get; set; }
         public string m_Password { get; set; }
 

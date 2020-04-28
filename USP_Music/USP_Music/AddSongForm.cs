@@ -45,5 +45,33 @@ namespace USP_Music
             this.m_RetForm.Show();
             this.Close();
         }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            this.m_RetForm.Show();
+            this.Close();
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            Song s = new Song();
+
+            s.m_Name = textBox1.Text.ToString();
+            s.m_Actor = textBox2.Text.ToString();
+            s.m_Genre = textBox3.Text.ToString();
+            s.m_Year = textBox4.Text.ToString();
+            s.m_URL = textBox5.Text.ToString();
+            UserDB.AddSongToDB(s);
+
+            UserDB.GetSongsList();
+            this.m_RetForm.update_list();
+            this.m_RetForm.Show();
+            this.Close();
+        }
     }
 }

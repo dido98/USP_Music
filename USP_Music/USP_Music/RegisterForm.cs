@@ -43,5 +43,30 @@ namespace USP_Music
             f.Show();
             this.Close();
         }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            string email = textBox1.Text.ToString();
+            string pass = textBox2.Text.ToString();
+
+            User u = new User(email, pass);
+            UserDB.cuurent_user = u;
+            UserDB.AddUserToDB(u);
+
+            MainForm f = new MainForm(m_RetForm);
+            f.Show();
+            this.Close();
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            m_RetForm.Show();
+            this.Close();
+        }
     }
 }

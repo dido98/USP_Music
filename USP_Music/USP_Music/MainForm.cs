@@ -103,5 +103,16 @@ namespace USP_Music
             // preview song
             // opens form with full info and link for the song
         }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void pictureBox4_Click(object sender, EventArgs e)
+        {
+            m_RetForm.Show();
+            this.Close();
+        }
     }
 }
