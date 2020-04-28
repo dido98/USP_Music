@@ -19,6 +19,7 @@ namespace USP_Music
         public static void LoadFromSQL()
         {
             _SongsList = GetSongsList();
+            ;
         }
 
         public static List<Song> GetSongsList()
@@ -61,12 +62,59 @@ namespace USP_Music
 
         public static User SearchUser(string email, string pass)
         {
+            List<User> list_users = new List<User>();
+
+            using (SqlConnection sqlConn = new SqlConnection(sqlConnStr))
+            {
+                if (sqlConn.State != ConnectionState.Open)
+                {
+                    sqlConn.Open();
+
+                    string cmd_str = String.Format("SELECT * FROM [USER]");
+
+                    SqlCommand cmd = new SqlCommand(cmd_str, sqlConn);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        User dbu = new User(reader["EMAIL"].ToString(), reader["PASSWORD"].ToString());
+                        list_users.Add(dbu);
+                    }
+
+                    cmd.Dispose();
+                    reader.Close();
+
+                    sqlConn.Close();
+                }
+            }
+
+            foreach(User c in list_users)
+            {
+                if (c.m_Email == email && c.m_Password == pass)
+                    return c;
+            }
+
             return null;
         }
 
         public static void AddUserToDB(User u)
         {
-            ;
+            using (SqlConnection sqlConn = new SqlConnection(sqlConnStr))
+            {
+                if (sqlConn.State != ConnectionState.Open)
+                {
+                    sqlConn.Open();
+
+                    string cmd_str =
+                        String.Format("INSERT INTO [USER] VALUES('{0}', '{1}')", u.m_Email, u.m_Password);
+
+                    SqlCommand cmd = new SqlCommand(cmd_str, sqlConn);
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+
+                    sqlConn.Close();
+                }
+            }
         }
 
         public static void RemoveSong(string song_name)
