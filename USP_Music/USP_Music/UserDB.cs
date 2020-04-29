@@ -10,7 +10,7 @@ namespace USP_Music
 {
     public static class UserDB
     {
-        public static User cuurent_user;
+        public static User current_user;
         private static string sqlConnStr = @"Server = (local); Database = music; Trusted_Connection = True;";
 
         public static List<Song> _SongsList = new List<Song>();
@@ -19,7 +19,6 @@ namespace USP_Music
         public static void LoadFromSQL()
         {
             _SongsList = GetSongsList();
-            ;
         }
 
         public static List<Song> GetSongsList()
@@ -32,20 +31,21 @@ namespace USP_Music
                 {
                     sqlConn.Open();
 
-                    string cmd_str = String.Format("SELECT * FROM [SONG]");
-
+                    //string cmd_str = String.Format("SELECT * FROM [SONG]");
+                    string cmd_str = String.Format("SELECT s.ID as sid, s.NAME as sname, s.SINGER as ssinger, s.GENRE as sgenre, s.RELEASE as srelease, s.YOUTUBE_URL as surl FROM [SONG] as s JOIN RELATIONS as r ON s.ID = r.ID_SONG JOIN [USER] as u ON u.ID = r.ID_USER WHERE u.ID = '{0}';", UserDB.current_user.m_iID);
+                    
                     SqlCommand cmd = new SqlCommand(cmd_str, sqlConn);
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())
                     {
                         Song s = new Song();
-                        s.m_iID = Int32.Parse(reader["ID"].ToString());
-                        s.m_Name = reader["NAME"].ToString();
-                        s.m_Actor = reader["SINGER"].ToString();
-                        s.m_Genre = reader["GENRE"].ToString();
-                        s.m_Year = reader["RELEASE"].ToString();
-                        s.m_URL = reader["YOUTUBE_URL"].ToString();
+                        s.m_iID = Int32.Parse(reader["sid"].ToString());
+                        s.m_Name = reader["sname"].ToString();
+                        s.m_Actor = reader["ssinger"].ToString();
+                        s.m_Genre = reader["sgenre"].ToString();
+                        s.m_Year = reader["srelease"].ToString();
+                        s.m_URL = reader["surl"].ToString();
                         TaskIdsList.Add(s);
                     }
 
@@ -78,6 +78,7 @@ namespace USP_Music
                     while (reader.Read())
                     {
                         User dbu = new User(reader["EMAIL"].ToString(), reader["PASSWORD"].ToString());
+                        dbu.m_iID = Int32.Parse(reader["ID"].ToString());
                         list_users.Add(dbu);
                     }
 
@@ -162,6 +163,48 @@ namespace USP_Music
                     string cmd_str =
                         String.Format("INSERT INTO [SONG] VALUES('{0}', '{1}', '{2}', '{3}', '{4}')",
                         s.m_Name, s.m_Actor, s.m_Genre, s.m_Year, s.m_URL);
+
+                    SqlCommand cmd = new SqlCommand(cmd_str, sqlConn);
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+
+                    sqlConn.Close();
+                }
+            }
+            int song_id = 0;
+            using (SqlConnection sqlConn = new SqlConnection(sqlConnStr))
+            {
+                if (sqlConn.State != ConnectionState.Open)
+                {
+                    sqlConn.Open();
+
+                    string cmd_str = String.Format("SELECT * FROM [SONG] WHERE [NAME] = '{0}' AND YOUTUBE_URL = '{1}'",
+                        s.m_Name, s.m_URL);
+
+                    SqlCommand cmd = new SqlCommand(cmd_str, sqlConn);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        song_id = Int32.Parse(reader["ID"].ToString());
+                    }
+
+                    cmd.Dispose();
+                    reader.Close();
+
+                    sqlConn.Close();
+                }
+            }
+
+            using (SqlConnection sqlConn = new SqlConnection(sqlConnStr))
+            {
+                if (sqlConn.State != ConnectionState.Open)
+                {
+                    sqlConn.Open();
+
+                    string cmd_str =
+                        String.Format("INSERT INTO [RELATIONS] VALUES('{0}', '{1}')",
+                        UserDB.current_user.m_iID, song_id);
 
                     SqlCommand cmd = new SqlCommand(cmd_str, sqlConn);
                     cmd.ExecuteNonQuery();

@@ -12,6 +12,15 @@ namespace USP_Music
 {
     public partial class LoginForm : Form
     {
+        private const int WM_NCHITTEST = 0x84;
+        private const int HT_CAPTION = 0x2;
+
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+            if (m.Msg == WM_NCHITTEST)
+                m.Result = (IntPtr)(HT_CAPTION);
+        }
         private Form1 m_RetForm = null;
         public LoginForm(Form1 return_form)
         {
@@ -38,7 +47,7 @@ namespace USP_Music
             User u = UserDB.SearchUser(email, pass);
 
             if (u != null)
-                UserDB.cuurent_user = u;
+                UserDB.current_user = u;
             else
                 return;
 
@@ -71,7 +80,7 @@ namespace USP_Music
             User u = UserDB.SearchUser(email, pass);
 
             if (u != null)
-                UserDB.cuurent_user = u;
+                UserDB.current_user = u;
             else
                 return;
 

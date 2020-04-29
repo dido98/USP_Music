@@ -12,6 +12,15 @@ namespace USP_Music
 {
     public partial class AddSongForm : Form
     {
+        private const int WM_NCHITTEST = 0x84;
+        private const int HT_CAPTION = 0x2;
+
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+            if (m.Msg == WM_NCHITTEST)
+                m.Result = (IntPtr)(HT_CAPTION);
+        }
         private MainForm m_RetForm = null;
         public AddSongForm(MainForm ret_form)
         {
@@ -68,7 +77,7 @@ namespace USP_Music
             s.m_URL = textBox5.Text.ToString();
             UserDB.AddSongToDB(s);
 
-            UserDB.GetSongsList();
+            //UserDB.GetSongsList();
             this.m_RetForm.update_list();
             this.m_RetForm.Show();
             this.Close();

@@ -13,6 +13,15 @@ namespace USP_Music
 {
     public partial class PreviewSongForm : Form
     {
+        private const int WM_NCHITTEST = 0x84;
+        private const int HT_CAPTION = 0x2;
+
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+            if (m.Msg == WM_NCHITTEST)
+                m.Result = (IntPtr)(HT_CAPTION);
+        }
         private MainForm m_RetForm = null;
         private Song m_Song = null;
         public PreviewSongForm(MainForm ret_form, Song s)

@@ -16,6 +16,12 @@ namespace USP_Music
         private const int WM_NCHITTEST = 0x84;
         private const int HT_CAPTION = 0x2;
 
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+            if (m.Msg == WM_NCHITTEST)
+                m.Result = (IntPtr)(HT_CAPTION);
+        }
         public Form1()
         {
             InitializeComponent();
@@ -24,12 +30,6 @@ namespace USP_Music
             label1.BringToFront();
         }
 
-        protected override void WndProc(ref Message m)
-        {
-            base.WndProc(ref m);
-            if (m.Msg == WM_NCHITTEST)
-                m.Result = (IntPtr)(HT_CAPTION);
-        }
 
         private void label1_Click(object sender, EventArgs e)
         {

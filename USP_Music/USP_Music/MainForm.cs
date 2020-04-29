@@ -12,6 +12,15 @@ namespace USP_Music
 {
     public partial class MainForm : Form
     {
+        private const int WM_NCHITTEST = 0x84;
+        private const int HT_CAPTION = 0x2;
+
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+            if (m.Msg == WM_NCHITTEST)
+                m.Result = (IntPtr)(HT_CAPTION);
+        }
         public void update_list()
         {
             List<Song> listOfSong = UserDB.GetSongsList();
@@ -31,7 +40,7 @@ namespace USP_Music
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            this.label1.Text = "User: " + UserDB.cuurent_user.m_Email;
+            this.label1.Text = "User: " + UserDB.current_user.m_Email;
             this.update_list();
         }
 
